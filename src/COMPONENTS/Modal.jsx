@@ -1,7 +1,5 @@
 const Modal = () => {
   return (
-    //         {/* Open the modal using document.getElementById('ID').showModal() method */}
-    // <button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}>open modal</button>
     <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box bg-gray-100">
         <form className="space-y-5">

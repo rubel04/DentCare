@@ -6,12 +6,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA5tzcehOSY9i9nrRELjXEWdJ8AP53bKDM",
-  authDomain: "dentcare-best.firebaseapp.com",
-  projectId: "dentcare-best",
-  storageBucket: "dentcare-best.firebasestorage.app",
-  messagingSenderId: "784055365777",
-  appId: "1:784055365777:web:4491d0e76d1bd0b266cf30",
+  apiKey:import.meta.env.VITE_APIKEY, 
+  authDomain:import.meta.env.VITE_AUTHDOMAIN, 
+  projectId:import.meta.env.VITE_PROJECTID, 
+  storageBucket:import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId:import.meta.env.VITE_MESSAGINGSENDERID,
+  appId:import.meta.env.VITE_APPID, 
 };
 
 // Initialize Firebase
