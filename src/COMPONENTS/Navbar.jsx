@@ -4,15 +4,15 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthenticationContext } from "../providers/AuthProvider";
 
 const Navbar = () => {
-  const { user, setUser , logOut } = useContext(AuthenticationContext);
-  const handleLogout = () =>{
+  const { user, setUser, logOut } = useContext(AuthenticationContext);
+  const handleLogout = () => {
     logOut()
-    .then(result => {
-      console.log(result.user);
-      setUser(result.user)
-    })
-    .catch(error => console.log(error))
-  }
+      .then((result) => {
+        console.log(result.user);
+        setUser(result.user);
+      })
+      .catch((error) => console.log(error));
+  };
   const navlinks = (
     <>
       <li>
@@ -31,14 +31,16 @@ const Navbar = () => {
           All Treatments
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          className={({ isActive }) => (isActive ? "text-[#0076ed]" : "")}
-          to="/profile"
-        >
-          Profile
-        </NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink
+            className={({ isActive }) => (isActive ? "text-[#0076ed]" : "")}
+            to="/profile"
+          >
+            Profile
+          </NavLink>
+        </li>
+      )}
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? "text-[#0076ed]" : "")}
@@ -100,14 +102,26 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {user ? (
-            <Link to="/">
-              <button onClick={handleLogout} className="px-8 py-3 cursor-pointer hover: rounded-2xl font-medium text-white bg-gradient-to-r from-[#00bcf7] to-[#0076ed] )">
-                Log Out
-              </button>
-            </Link>
+            <div className="flex items-center space-x-4">
+              <div className="border-2 border-[#ffb507] cursor-pointer rounded-full">
+                <img
+                  className="w-10 h-10 m-1 object-cover rounded-full"
+                  src={user?.photoURL}
+                  alt=""
+                />
+              </div>
+              <Link to="/">
+                <button
+                  onClick={handleLogout}
+                  className="px-8 py-3 cursor-pointer rounded-2xl font-medium text-white bg-gradient-to-r from-[#00bcf7] to-[#0076ed]"
+                >
+                  Log Out
+                </button>
+              </Link>
+            </div>
           ) : (
             <Link to="/login">
-              <button className="px-8 py-3 cursor-pointer hover: rounded-2xl font-medium text-white bg-gradient-to-r from-[#00bcf7] to-[#0076ed] )">
+              <button className="px-8 py-3 cursor-pointer rounded-2xl font-medium text-white bg-gradient-to-r from-[#00bcf7] to-[#0076ed] )">
                 Login
               </button>
             </Link>

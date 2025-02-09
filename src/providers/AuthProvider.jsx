@@ -7,7 +7,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase.config";
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -20,13 +20,16 @@ const AuthProvider = (props) => {
 
   const handleRegister = (email, password) => {
     // setIsLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password)
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const handleUpdateProfile = (name,photo) =>{
+  const handleUpdateProfile = (name, photo) => {
     setIsLoading(true);
-    return updateProfile(auth.currentUser, {displayName: name, photoURL: photo})
-  }
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
 
   const handleLogin = (email, password) => {
     setIsLoading(true);
@@ -43,14 +46,16 @@ const AuthProvider = (props) => {
     return signOut(auth);
   };
 
-  const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-    setIsLoading(false);
-
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log(currentUser);
+      setIsLoading(false);
+    });
     return () => {
       unSubscribe();
     };
-  });
+  }, []);
 
   const authenticationData = {
     handleRegister,

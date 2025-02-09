@@ -10,6 +10,9 @@ import ServiceDetails from "./COMPONENTS/ServiceDetails.jsx";
 import AuthProvider from "./providers/AuthProvider.jsx";
 import Login from "./COMPONENTS/Login.jsx";
 import Register from "./COMPONENTS/Register.jsx";
+import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
+import Profile from "./COMPONENTS/Profile.jsx";
+import MyAppointments from "./COMPONENTS/MyAppointments.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +32,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/service/details/:id",
-        element: <ServiceDetails />,
+        element: (
+          <PrivateRoute>
+            <ServiceDetails />
+          </PrivateRoute>
+        ),
         loader: async ({ params }) => {
           const res = await fetch(`/services.json`);
           const data = await res.json();
@@ -38,12 +45,20 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: '/login',
-        element: <Login/>
+        path: "/login",
+        element: <Login />,
       },
       {
-        path: '/register',
-        element: <Register/>
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: '/profile',
+        element: <PrivateRoute><Profile/></PrivateRoute>
+      },
+      {
+        path: '/myAppointments',
+        element: <PrivateRoute><MyAppointments/></PrivateRoute>
       }
     ],
   },
